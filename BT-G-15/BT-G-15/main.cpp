@@ -4,6 +4,7 @@ using namespace std;
 int TinhTong(int n)
 {
 	int tong; 
+	tong = 0;
 	for (int i = 1; i <= n; i++)
 		tong += i;
 	return tong;
