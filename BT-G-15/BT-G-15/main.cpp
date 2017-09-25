@@ -12,7 +12,7 @@ int TinhTong(int n)
 
 int TinhGiaiThua(int n)
 {
-	int GiaiThua;
+	int GiaiThua = 1;
 	for (int i = 1; i <= n; i++)
 		GiaiThua *= i;
 	return GiaiThua;
