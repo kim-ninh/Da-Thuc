@@ -29,6 +29,7 @@ private:
 public:
 	DaThuc();
 	~DaThuc();
+	NodeDonThuc* CreateNodeDonThuc(int x,int b,char s);
 	DaThuc NhapTuFile(fstream);
 	void RutGon();
 	void ChuanHoa();

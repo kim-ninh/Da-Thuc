@@ -1,15 +1,30 @@
 #include "DaThuc.h"
 DaThuc::DaThuc()
 {
-	donthuc->data=NULL;			
+	donthuc=NULL;			
 }
 DaThuc::~DaThuc()
 {
 	while (donthuc != NULL)
 	{
-		delete[] donthuc;
+		delete donthuc->data.bien;
+		delete donthuc;
 		donthuc = donthuc->next;
 	}
+}
+NodeDonThuc* DaThuc::CreateNodeDonThuc(int x,int b,char s)
+{
+	NodeDonThuc* donthuc = new NodeDonThuc;
+	donthuc->data.bien = new Bien;
+	if (donthuc == NULL || donthuc->data.bien==NULL)
+		return NULL;
+	donthuc->data.hs = x;
+	donthuc->data.bien->ten=s;
+	donthuc->data.bien->bac = b;
+	donthuc->data.bien->next = NULL;
+	donthuc->next = NULL;
+	return donthuc;
+
 }
 ostream& operator <<(ostream & os, NodeDonThuc donthuc)
 {
