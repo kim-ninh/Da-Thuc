@@ -1,14 +1,7 @@
 #include "DaThuc.h"
 DaThuc::DaThuc()
 {
-	donthuc->data.hs = 1;
-	donthuc->data.bien->ten = 'a';
-	donthuc->data.bien->bac = 1;
-
-	donthuc->next->data.hs = 1;
-	donthuc->next->data.bien->ten = 'b';
-	donthuc->next->data.bien->bac = 1;
-	donthuc->next->next = NULL;
+	donthuc->data=NULL;			
 }
 DaThuc::~DaThuc()
 {
