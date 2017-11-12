@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include<fstream>
 using namespace std;
 
 struct Bien
@@ -35,6 +35,7 @@ public:
 	DaThuc operator + (const DaThuc&);
 	DaThuc operator - (const DaThuc&);
 	DaThuc operator * (const DaThuc&);
+	friend ostream& operator <<(ostream &, NodeDonThuc);
 	/*DaThuc Cong(const DaThuc&);
 	DaThuc Tru(const DaThuc&);
 	DaThuc Nhan(const DaThuc&);*/
