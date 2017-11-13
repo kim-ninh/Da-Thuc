@@ -303,7 +303,7 @@ void DaThuc::ChuanHoa()
 {
 	if (donthuc == nullptr)
 		return;
-
+	this->RutGon();
 	NodeDonThuc* tail = donthuc;
 
 	// tìm con trỏ tail, phục vụ cho thao tác sắp xếp
@@ -335,30 +335,31 @@ DaThuc& DaThuc::operator=(const DaThuc & dathuc)
 
 DaThuc DaThuc::operator-(const DaThuc& dathuc)
 {
-	// cho rằng cả 2 đa thức đã được chuẩn hóa
-
+	DaThuc dt1(*this);
+	DaThuc dt2(dathuc);
+	dt1.ChuanHoa();
+	dt2.ChuanHoa();
 	DaThuc f;
-	NodeDonThuc *p = this->donthuc;			// dùng để duyệt vòng lặp cho đa thức 1
-	NodeDonThuc *q = dathuc.donthuc;		// dùng để duyệt vòng lặp cho đa thức 2
-	NodeDonThuc *dummy = new NodeDonThuc();			// tạo node giả, các node từ 2 đa thức sẽ được thêm vào sau node này, được hủy ở cuối hàm
-	NodeDonThuc *tail = dummy;			// con trỏ giữ node cuối cùng tạm thời của đa thức kết quả
-
+	NodeDonThuc *p = dt1.donthuc;           // dùng để duyệt vòng lặp cho đa thức 1
+	NodeDonThuc *q = dt2.donthuc;       // dùng để duyệt vòng lặp cho đa thức 2
+	NodeDonThuc *dummy = new NodeDonThuc();         // tạo node giả, các node từ 2 đa thức sẽ được thêm vào sau node này, được hủy ở cuối hàm
+	NodeDonThuc *tail = dummy;          // con trỏ giữ node cuối cùng tạm thời của đa thức kết quả
 	while (p != nullptr && q != nullptr)
 	{
-		if (priority(p->data, q->data) > 0)					// đơn thức nằm trong đa thức bị trừ có ưu tiên lớn hơn
+		if (priority(p->data, q->data) > 0)                    // đơn thức nằm trong đa thức bị trừ có ưu tiên lớn hơn
 		{
 			tail->next = new NodeDonThuc(p->data);
 			tail = tail->next;
 			p = p->next;
 		}
-		else if (priority(p->data, q->data) < 0)			// đơn thức nằm trong đa thức trừ có ưu tiên lớn hơn
+		else if (priority(p->data, q->data) < 0)           // đơn thức nằm trong đa thức trừ có ưu tiên lớn hơn
 		{
 			tail->next = new NodeDonThuc(q->data);
 			tail = tail->next;
 			tail->data.hs = -tail->data.hs;
 			q = q->next;
 		}
-		else				// 2 đơn thức có cùng độ ưu tiên (chỉ khác hệ số) => cộng 2 hệ số rồi đẩy vào đa thức kết quả
+		else                // 2 đơn thức có cùng độ ưu tiên (chỉ khác hệ số) => cộng 2 hệ số rồi đẩy vào đa thức kết quả
 		{
 			tail->next = new NodeDonThuc(p->data);
 			tail = tail->next;
@@ -367,7 +368,6 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 			q = q->next;
 		}
 	}
-
 	// thêm các node còn lại của đa thức 1 (đa thức 2 đã hết)
 	while (p)
 	{
@@ -375,20 +375,17 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 		tail = tail->next;
 		p = p->next;
 	}
-
 	// thêm các node còn lại của đa thức 2 (đa thức 1 đã hết)
 	while (q)
 	{
 		tail->next = new NodeDonThuc(q->data);
 		tail = tail->next;
-		tail->data.hs = -tail->data.hs;				// đổi lại dấu hệ số
+		tail->data.hs = -tail->data.hs;               // đổi lại dấu hệ số
 		q = q->next;
 	}
-
-	f.donthuc = dummy->next;		// các node của đa thức kết quả sẽ bắt đầu sau node giả
-	delete dummy;	// hủy node giả
-
-	return f;			// đa thức kết quả trả về đã chuẩn hóa sẵn, ko cần chuẩn hóa lại
+	f.donthuc = dummy->next;     // các node của đa thức kết quả sẽ bắt đầu sau node giả
+	delete dummy;   // hủy node giả
+	return f;           // đa thức kết quả trả về đã chuẩn hóa sẵn, ko cần chuẩn hóa lại
 }
 
 ostream& operator <<(ostream & os, NodeDonThuc *donthuc)
