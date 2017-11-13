@@ -61,7 +61,7 @@ public:
 	void NhapTuFile(string filename);
 	void RutGon();
 	void ChuanHoa();
-	DaThuc operator = (const DaThuc&);
+	DaThuc& operator = (const DaThuc&);
 	DaThuc operator + (const DaThuc&);
 	DaThuc operator - (const DaThuc& dathuc);
 	DaThuc operator * (const DaThuc&);

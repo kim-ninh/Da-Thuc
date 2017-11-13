@@ -303,7 +303,7 @@ void DaThuc::ChuanHoa()
 	quick_sort(donthuc, tail, priority);
 }
 
-DaThuc DaThuc::operator=(const DaThuc & dathuc)
+DaThuc& DaThuc::operator=(const DaThuc & dathuc)
 {
 	DaThuc result(dathuc);
 	return result;
