@@ -267,11 +267,21 @@ DaThuc::DaThuc(const DaThuc& dathuc)
 
 DaThuc::~DaThuc()
 {
-	while (donthuc != NULL)
+	NodeDonThuc *p = donthuc;
+	while (p != nullptr)
 	{
-		delete donthuc->data.bien;
-		delete donthuc;
-		donthuc = donthuc->next;
+		donthuc = donthuc->next;					//Cập nhật lại đầu dslk 'donthuc'
+													
+		Bien *q = p->data.bien;						//Tiến hành xóa dslk 'Bien' trong đơn thức 'p'
+		while (q != nullptr)
+		{
+			p->data.bien = p->data.bien->next;		//Cập nhật lại đầu dslk 'bien'
+			delete q;
+			q = p->data.bien;
+		}
+
+		delete p;
+		p = donthuc;
 	}
 }
 NodeDonThuc* DaThuc::CreateNodeDonThuc(int x,int b,char s)
@@ -367,12 +377,12 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 	return f;
 }
 
-ostream& operator <<(ostream & os, NodeDonThuc donthuc)
+ostream& operator <<(ostream & os, NodeDonThuc *donthuc)
 {
-	os << donthuc.data.hs << "*" << donthuc.data.bien->ten << "^" << donthuc.data.bien->bac;
+	os << donthuc->data.hs << "*" << donthuc->data.bien->ten << "^" << donthuc->data.bien->bac;
 	return os;
 }
-void DaThuc::InRaFile(fstream& fileOut)
+void DaThuc::InRaFile(ostream& fileOut)
 {
 	NodeDonThuc * p = donthuc;
 	

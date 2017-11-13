@@ -1,7 +1,4 @@
-#include<fstream>
-#include<iomanip>
-#include<ctime>
-using namespace std;
+#include"TaoInputDaThuc.h"
 
 float generateRandomFloat()
 {
@@ -12,9 +9,8 @@ float generateRandomFloat()
 	return randomFloat;
 }
 
-void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac = 0, short SoDonThucCungBien = 0)
+void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac, short SoDonThucCungBien)
 {
-	srand(time(nullptr));
 	char dsBien[] = { 'x','y','z' };
 	short dsBac[] = { 0,1,3 };
 	float heso;
@@ -29,7 +25,7 @@ void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac = 0
 		heso = generateRandomFloat();
 		if (heso > 0 && i != 0)
 			outDev << '+';
-		outDev << setprecision(4) << heso << '*' << dsBien[pos] << '^';
+		outDev << setprecision(2) <<fixed<< heso << '*' << dsBien[pos] << '^';
 		pos = rand() % (sizeof(dsBac) / sizeof(short));
 		outDev << dsBac[pos];
 	}

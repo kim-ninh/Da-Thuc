@@ -29,5 +29,8 @@
     <ClInclude Include="DaThuc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TaoInputDaThuc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

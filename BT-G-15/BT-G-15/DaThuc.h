@@ -65,11 +65,11 @@ public:
 	DaThuc operator + (const DaThuc&);
 	DaThuc operator - (const DaThuc& dathuc);
 	DaThuc operator * (const DaThuc&);
-	friend ostream& operator <<(ostream &, NodeDonThuc);
+	friend ostream& operator <<(ostream &, NodeDonThuc*);
 	/*DaThuc Cong(const DaThuc&);
 	DaThuc Tru(const DaThuc&);
 	DaThuc Nhan(const DaThuc&);*/
-	void InRaFile(fstream&);
+	void InRaFile(ostream&);
 };
 
 
