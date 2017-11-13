@@ -60,6 +60,8 @@ public:
 	void InsertHead(NodeDonThuc* node);
 	void NhapTuFile(string filename);
 	void RutGon();
+	int length();// Hàm phụ cho hàm RutGon và DeleteNode
+	void DeleteNode(int pos); // Hàm phụ cho hàm RutGon
 	void ChuanHoa();
 	DaThuc& operator = (const DaThuc&);
 	DaThuc operator + (const DaThuc&);

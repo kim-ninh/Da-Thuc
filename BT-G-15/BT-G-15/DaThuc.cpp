@@ -445,3 +445,104 @@ void addTail(NodeDonThuc*& pHead, NodeDonThuc*& pTail, NodeDonThuc* p)
 		pTail = pTail->next;
 	}
 }
+
+
+int DaThuc::length() {
+	int count = 0;
+	for (NodeDonThuc*p = donthuc; p; p = p->next)count++;
+	return count;
+}
+
+void DaThuc::DeleteNode(int pos) {
+	if (pos < 0 || pos >= length())return;
+	if (donthuc == NULL)return;
+	if (donthuc->next == NULL) {
+		delete donthuc;
+		donthuc = NULL;
+	}
+	else if (pos == 0) {
+		NodeDonThuc*p = donthuc;
+		donthuc = donthuc->next;
+		p->next = NULL;
+		delete p;
+	}
+	else {
+		NodeDonThuc*tmp1 = donthuc;
+		NodeDonThuc*tmp2 = donthuc->next;
+		for (int i = 0; i < pos - 1; i++) {
+			tmp1 = tmp1->next;
+			tmp2 = tmp2->next;
+		}
+		tmp1->next = tmp2->next;
+		tmp2->next = NULL;
+		delete tmp2;
+	}
+}
+
+void DaThuc::RutGon() {
+	if (donthuc == NULL || donthuc->next == NULL)return;
+	ChuanHoa();// Sắp xếp đa thức tăng trước khi rút gọn
+	NodeDonThuc*p = donthuc;
+	NodeDonThuc*q = p->next;
+	int pos = 0, n = length();
+
+	// xóa các đơn thức có hệ số bằng 0 hoặc những đơn thức giống nhau hoặc những đơn thức có bậc bằng 0
+	while (pos < n) {
+		if (p->data.hs == 0) {		// hệ số bằng 0
+			p = p->next;
+			q = q->next;
+			DeleteNode(pos);
+			pos++;
+			n--;
+		}
+		if (priority(p->data, q->data) == 0) {		// 2 đơn thức bằng nhau
+			p->data.hs += q->data.hs;
+			q = q->next;
+			pos++;
+			DeleteNode(pos);
+			pos--;
+			n--;
+		}
+		else if (p->data.bien->bac == 0 && q->data.bien->bac == 0) {		// 2 đơn thức có bậc bằng 0
+			p->data.hs += q->data.hs;
+			q = q->next;
+			pos++;
+			DeleteNode(pos);
+			pos--;
+			n--;
+		}
+		else {
+			p = p->next;
+			q = q->next;
+			pos++;
+		}
+	}
+}
+
+DaThuc DaThuc::operator+(const DaThuc&dathuc) {
+	DaThuc f;
+	NodeDonThuc*p = this->donthuc;
+	NodeDonThuc*q = dathuc.donthuc;
+	NodeDonThuc*dummy = new NodeDonThuc();
+	NodeDonThuc*tail = dummy;
+	// liên kết 2 đa thức sau đó gọi hàm rút gọn
+
+	// Thêm các node của đa thức 1 vào cuối
+	while (p) {
+		tail->next = new NodeDonThuc(p->data);
+		tail = tail->next;
+		p = p->next;
+	}
+
+	// thêm các node của đa thức 2 vào cuối (đa thức 1 đã hết)
+	while (q) {
+		tail->next = new NodeDonThuc(q->data);
+		tail = tail->next;
+		q = q->next;
+	}
+
+	f.donthuc = dummy->next;		// các node của đa thức kết quả sẽ bắt đầu sau node giả
+	delete dummy;	// hủy node giả
+	f.RutGon();// rút gọn đa thức kết quả
+	return f;
+}
