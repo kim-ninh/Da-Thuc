@@ -33,13 +33,14 @@ ostream& operator <<(ostream & os, NodeDonThuc donthuc)
 }
 void DaThuc::InRaFile(fstream fileOut)
 {
+	NodeDonThuc * p = donthuc;
 	fileOut.open("DaThuc.txt", ios_base::out);
-	while (donthuc->next != NULL)
+	while (p->next != NULL)
 	{
-		fileOut << donthuc;
-		if (donthuc->data.hs > 0)
+		fileOut << p;
+		if (p->data.hs > 0)
 			fileOut << '+';
-		donthuc = donthuc->next;
+		p = p->next;
 	}
 
 	fileOut.close();
