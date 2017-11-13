@@ -49,14 +49,15 @@ class DaThuc
 {
 public:
 	NodeDonThuc* donthuc;
-
+	Type typeof(char c);
 	void quick_sort(NodeDonThuc*& dt_head, NodeDonThuc*& dt_tail, int(*cmp)(DonThuc&, DonThuc&));
 public:
 	DaThuc();
 	DaThuc(const DaThuc& dathuc);
 	~DaThuc();
 	NodeDonThuc* CreateNodeDonThuc(int x,int b,char s);
-	DaThuc NhapTuFile(fstream);
+	void InsertHead(NodeDonThuc* node);
+	void NhapTuFile(string filename);
 	void RutGon();
 	void ChuanHoa();
 	DaThuc operator + (const DaThuc&);
