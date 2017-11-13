@@ -15,12 +15,14 @@ int main()
 	outFile1.close();
 	outFile2.close();
 
-	DaThuc F1, F2;
+	DaThuc F1, F2, F;
 	F1.NhapTuFile("input1.txt");
 	F2.NhapTuFile("input2.txt");
-	//F = F1 - F2;
-	DaThuc F(F1 - F2);
-	F1.InRaFile(cout);
+	//DaThuc F(F1 - F2);
+	F1.ChuanHoa();
+	F2.ChuanHoa();
+	F = F1 + F2;
+	F.InRaFile(cout);
 	cin.get();
 
 	//DaThuc F1, F2;

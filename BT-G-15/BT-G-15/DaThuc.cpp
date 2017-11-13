@@ -284,7 +284,7 @@ DaThuc::~DaThuc()
 		p = donthuc;
 	}
 }
-NodeDonThuc* DaThuc::CreateNodeDonThuc(int x,int b,char s)
+NodeDonThuc* DaThuc::CreateNodeDonThuc(float x,int b,char s)
 {
 	NodeDonThuc* donthuc = new NodeDonThuc;
 	donthuc->data.bien = new Bien;
@@ -315,8 +315,22 @@ void DaThuc::ChuanHoa()
 
 DaThuc& DaThuc::operator=(const DaThuc & dathuc)
 {
-	DaThuc result(dathuc);
-	return result;
+	NodeDonThuc *dummy = new NodeDonThuc();
+	NodeDonThuc *tail = dummy;
+	NodeDonThuc *p = dathuc.donthuc;
+
+	while (p != nullptr)
+	{
+		tail->next = new NodeDonThuc(p->data);
+		tail = tail->next;
+		p = p->next;
+	}
+
+	this->donthuc = dummy->next;
+	delete dummy;
+	dummy = nullptr;
+
+	return *this;
 }
 
 DaThuc DaThuc::operator-(const DaThuc& dathuc)
@@ -386,11 +400,11 @@ void DaThuc::InRaFile(ostream& fileOut)
 {
 	NodeDonThuc * p = donthuc;
 	
-	while (p->next != NULL)
+	while (p != NULL)
 	{
-		fileOut << p;
-		if (p->data.hs > 0)
+		if (p != donthuc && p->data.hs > 0)
 			fileOut << '+';
+		fileOut << p;
 		p = p->next;
 	}
 

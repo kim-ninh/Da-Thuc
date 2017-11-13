@@ -56,7 +56,7 @@ public:
 	DaThuc();
 	DaThuc(const DaThuc& dathuc);
 	~DaThuc();
-	NodeDonThuc* CreateNodeDonThuc(int x,int b,char s);
+	NodeDonThuc* CreateNodeDonThuc(float x,int b,char s);
 	void InsertHead(NodeDonThuc* node);
 	void NhapTuFile(string filename);
 	void RutGon();

@@ -11,8 +11,8 @@ float generateRandomFloat()
 
 void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac, short SoDonThucCungBien)
 {
-	char dsBien[] = { 'x','y','z' };
-	short dsBac[] = { 0,1,3 };
+	char dsBien[] = { 'x','y'};
+	short dsBac[] = { 1,2,4 };
 	float heso;
 
 	char demBac, demBien;
