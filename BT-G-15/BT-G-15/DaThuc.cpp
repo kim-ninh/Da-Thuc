@@ -410,9 +410,7 @@ void DaThuc::InRaFile(ostream& fileOut)
 
 int priority(DonThuc& dt1, DonThuc& dt2)
 {
-	//const float EPSILON = 1e-7;
-	//if (fabs(dt1.hs - dt2.hs) < EPSILON)		// hệ số bằng nhau
-	//	return 0;
+	
 	int dt1_bac = dt1.Bac();
 	int dt2_bac = dt2.Bac();
 
