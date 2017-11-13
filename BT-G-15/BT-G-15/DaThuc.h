@@ -38,7 +38,7 @@ struct NodeDonThuc
 class DaThuc
 {
 private:
-	NodeDonThuc* dtHead;
+	NodeDonThuc* donthuc;
 
 	Type typeof(char c);
 public:

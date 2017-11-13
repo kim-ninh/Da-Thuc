@@ -16,15 +16,15 @@ Type DaThuc::typeof(char c)
 }
 DaThuc::DaThuc()
 {
-	dtHead=NULL;			
+	donthuc=NULL;			
 }
 DaThuc::~DaThuc()
 {
-	while (dtHead != NULL)
+	while (donthuc != NULL)
 	{
-		delete dtHead->data.bien;
-		delete dtHead;
-		dtHead = dtHead->next;
+		delete donthuc->data.bien;
+		delete donthuc;
+		donthuc = donthuc->next;
 	}
 }
 NodeDonThuc* DaThuc::CreateNodeDonThuc(float hs=1,int b=0,char s='x')
@@ -43,12 +43,12 @@ NodeDonThuc* DaThuc::CreateNodeDonThuc(float hs=1,int b=0,char s='x')
 }
 
 void DaThuc::InsertHead(NodeDonThuc* node) {
-	if (dtHead == NULL)
-		dtHead = node;
+	if (donthuc == NULL)
+		donthuc = node;
 	else
 	{
-		node->next = dtHead;
-		dtHead = node;
+		node->next = donthuc;
+		donthuc = node;
 	}
 }
 
@@ -154,7 +154,7 @@ ofstream& operator <<(ofstream & os, NodeDonThuc donthuc)
 void DaThuc::InRaFile(ofstream& fileOut)
 {
 	fileOut.open("DaThuc.txt", ios_base::out);
-	for (NodeDonThuc *p = dtHead; p != NULL; p = p->next)
+	for (NodeDonThuc *p = donthuc; p != NULL; p = p->next)
 	{
 
 	}
