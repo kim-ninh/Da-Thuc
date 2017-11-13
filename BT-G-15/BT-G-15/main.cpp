@@ -1,28 +1,23 @@
 #include<iostream> 
 #include "DaThuc.h"
+
+#define INP_F1 "f1.txt" 
+#define INP_F2 "f2.txt" 
+#define OUTPUT "f.txt"
 using namespace std;
-
-int TinhTong(int n)
-{
-	int tong; 
-	tong = 0;
-	for (int i = 1; i <= n; i++)
-		tong += i;
-	return tong;
-}
-
-int TinhGiaiThua(int n)
-{
-	int GiaiThua = 1;
-	for (int i = 1; i <= n; i++)
-		GiaiThua *= i;
-	return GiaiThua;
-}
-
 
 int main()
 {
-
-	cout << "Hello World";
+	DaThuc F1, F2;
+	F1.NhapTuFile(INP_F1);
+	//F2.NhapTuFile(INP_F2);
+	fstream ofs;
+	ofs.open(OUTPUT, ios_base::out);	
+	F1.InRaFile(ofs);
+	//F2.InRaFile(ofs);
+	ofs.close();
 	return 0;
 }
+
+
+

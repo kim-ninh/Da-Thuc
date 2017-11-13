@@ -366,10 +366,10 @@ ostream& operator <<(ostream & os, NodeDonThuc donthuc)
 	os << donthuc.data.hs << "*" << donthuc.data.bien->ten << "^" << donthuc.data.bien->bac;
 	return os;
 }
-void DaThuc::InRaFile(fstream fileOut)
+void DaThuc::InRaFile(fstream& fileOut)
 {
 	NodeDonThuc * p = donthuc;
-	fileOut.open("DaThuc.txt", ios_base::out);
+	
 	while (p->next != NULL)
 	{
 		fileOut << p;
@@ -378,7 +378,7 @@ void DaThuc::InRaFile(fstream fileOut)
 		p = p->next;
 	}
 
-	fileOut.close();
+	//fileOut.close();
 }
 
 int priority(DonThuc& dt1, DonThuc& dt2)

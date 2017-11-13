@@ -68,7 +68,7 @@ public:
 	/*DaThuc Cong(const DaThuc&);
 	DaThuc Tru(const DaThuc&);
 	DaThuc Nhan(const DaThuc&);*/
-	void InRaFile(fstream);
+	void InRaFile(fstream&);
 };
 
 
