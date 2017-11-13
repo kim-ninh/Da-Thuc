@@ -20,7 +20,7 @@ int main()
 	F2.NhapTuFile("input2.txt");
 	//F = F1 - F2;
 	DaThuc F(F1 - F2);
-	F.InRaFile(cout);
+	F1.InRaFile(cout);
 	cin.get();
 
 	//DaThuc F1, F2;

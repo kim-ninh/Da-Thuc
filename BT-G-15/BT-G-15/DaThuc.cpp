@@ -480,22 +480,17 @@ void DaThuc::DeleteNode(int pos) {
 }
 
 bool KiemTraBac(DonThuc dt1, DonThuc dt2){
-	int tmp1 = 0, tmp2 = 0;
 	for (Bien*p = dt1.bien; p; p = p->next) {
-		if (p->bac != 0)
-		{
-			tmp1 = 1;
-			break;
+		if (p->bac != 0){
+			return false;
 		}
 	}
 	for (Bien*q = dt2.bien; q; q = q->next) {
 		if (q->bac != 0) {
-			tmp2 = 1;
-			break;
+			return false;
 		}
 	}
-	if (tmp1 == 0 && tmp2 == 0)return true;
-	return false;
+	return true;
 }
 
 void DaThuc::RutGon() {
