@@ -399,7 +399,7 @@ void DaThuc::InRaFile(ostream& fileOut)
 	
 	while (p != NULL)
 	{
-		if (p != donthuc && p->data.hs > 0)
+		if (p != donthuc && p->data.hs >= 0)
 			fileOut << '+';
 		fileOut << p;
 		p = p->next;
@@ -410,6 +410,9 @@ void DaThuc::InRaFile(ostream& fileOut)
 
 int priority(DonThuc& dt1, DonThuc& dt2)
 {
+	//const float EPSILON = 1e-7;
+	//if (fabs(dt1.hs - dt2.hs) < EPSILON)		// hệ số bằng nhau
+	//	return 0;
 	int dt1_bac = dt1.Bac();
 	int dt2_bac = dt2.Bac();
 
@@ -506,21 +509,18 @@ bool KiemTraBac(DonThuc dt1, DonThuc dt2){
 
 void DaThuc::RutGon() {
 	if (donthuc == NULL || donthuc->next == NULL)return;
+
 	ChuanHoa();// Sắp xếp đa thức tăng trước khi rút gọn
+	
 	NodeDonThuc*p = donthuc;
 	NodeDonThuc*q = p->next;
 	int pos = 0, n = length();
+	int tmp = 0;
 
 	// xóa các đơn thức có hệ số bằng 0 hoặc những đơn thức giống nhau hoặc những đơn thức có bậc bằng 0
+
 	while (p->next!=NULL) {		// đã sửa lại điều kiện vòng lặp
-		if (p->data.hs == 0) {		// hệ số bằng 0
-			p = p->next;
-			q = q->next;
-			DeleteNode(pos);
-			pos++;
-			n--;
-		}
-		if (priority(p->data, q->data) == 0) {		// 2 đơn thức bằng nhau
+		 if (priority(p->data, q->data) == 0) {		// 2 đơn thức bằng nhau
 			p->data.hs += q->data.hs;
 			q = q->next;
 			pos++;
@@ -540,6 +540,19 @@ void DaThuc::RutGon() {
 			p = p->next;
 			q = q->next;
 			pos++;
+		}
+	}
+	NodeDonThuc*p1 = donthuc;
+	int pos1 = 0;
+	while (p1) {
+		if (p1->data.hs == 0) {		// hệ số bằng 0
+			p1 = p1->next;
+			DeleteNode(pos1);
+			n--;
+		}
+		else {
+			p1 = p1->next;
+			pos1++;
 		}
 	}
 }
@@ -568,6 +581,7 @@ DaThuc DaThuc::operator+(const DaThuc&dathuc) {
 
 	f.donthuc = dummy->next;		// các node của đa thức kết quả sẽ bắt đầu sau node giả
 	delete dummy;	// hủy node giả
+	
 	f.RutGon();// rút gọn đa thức kết quả
 	return f;
 }
