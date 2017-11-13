@@ -48,7 +48,7 @@ struct NodeDonThuc
 
 class DaThuc
 {
-public:
+private:
 	NodeDonThuc* donthuc;
 	Type typeof(char c);
 	void quick_sort(NodeDonThuc*& dt_head, NodeDonThuc*& dt_tail, int(*cmp)(DonThuc&, DonThuc&));
@@ -76,10 +76,10 @@ public:
 
 
 /**
-* Hàm định nghĩa thứ tự sắp xếp của 2 đa thức
+* Hàm định nghĩa thứ tự ưu tiên của 2 đơn thức trong đa thức
 * @dt1 đa thức 1
 * @dt2 đa thức 2
-* @return -1 nếu "nhỏ hơn" | 0 nếu "bằng nhau" | 1 nếu "lớn hơn"
+* @return -1 nếu "nhỏ hơn" (dt1 đứng sau) | 0 nếu "bằng nhau"| 1 nếu "lớn hơn" (dt1 đứng trước)
 */
 int priority(DonThuc& dt1, DonThuc& dt2);
 

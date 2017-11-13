@@ -331,20 +331,20 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 
 	while (p != nullptr && q != nullptr)
 	{
-		if (priority(p->data, q->data) > 0)
+		if (priority(p->data, q->data) > 0)					// đơn thức nằm trong đa thức bị trừ có ưu tiên lớn hơn
 		{
 			tail->next = new NodeDonThuc(p->data);
 			tail = tail->next;
 			p = p->next;
 		}
-		else if (priority(p->data, q->data) < 0)
+		else if (priority(p->data, q->data) < 0)			// đơn thức nằm trong đa thức trừ có ưu tiên lớn hơn
 		{
 			tail->next = new NodeDonThuc(q->data);
 			tail = tail->next;
 			tail->data.hs = -tail->data.hs;
 			q = q->next;
 		}
-		else
+		else				// 2 đơn thức có cùng độ ưu tiên (chỉ khác hệ số) => cộng 2 hệ số rồi đẩy vào đa thức kết quả
 		{
 			tail->next = new NodeDonThuc(p->data);
 			tail = tail->next;
@@ -374,7 +374,7 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 	f.donthuc = dummy->next;		// các node của đa thức kết quả sẽ bắt đầu sau node giả
 	delete dummy;	// hủy node giả
 
-	return f;
+	return f;			// đa thức kết quả trả về đã chuẩn hóa sẵn, ko cần chuẩn hóa lại
 }
 
 ostream& operator <<(ostream & os, NodeDonThuc *donthuc)
