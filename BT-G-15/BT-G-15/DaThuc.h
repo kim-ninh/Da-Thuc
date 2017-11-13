@@ -1,7 +1,20 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
+#include <string>
 #include<fstream>
 using namespace std;
+
+enum State {
+	HS,
+	VAR,
+	BAC,
+	INIT
+};
+
+enum Type {
+	NUM, MUL, PLUS, SUB, POWER, BIEN, //số, *, +, -, ^
+	END	//ket thuc chuoi
+};
 
 struct Bien
 {
@@ -25,20 +38,23 @@ struct NodeDonThuc
 class DaThuc
 {
 private:
-	NodeDonThuc* donthuc;
+	NodeDonThuc* dtHead;
+
+	Type typeof(char c);
 public:
 	DaThuc();
 	~DaThuc();
-	NodeDonThuc* CreateNodeDonThuc(int x,int b,char s);
-	DaThuc NhapTuFile(fstream);
+	NodeDonThuc* CreateNodeDonThuc(float x,int b,char s);
+	void InsertHead(NodeDonThuc* node);
+	void NhapTuFile(string filename);
 	void RutGon();
 	void ChuanHoa();
 	DaThuc operator + (const DaThuc&);
 	DaThuc operator - (const DaThuc&);
 	DaThuc operator * (const DaThuc&);
-	friend ostream& operator <<(ostream &, NodeDonThuc);
+	friend ofstream& operator <<(ofstream &, NodeDonThuc);
 	/*DaThuc Cong(const DaThuc&);
 	DaThuc Tru(const DaThuc&);
 	DaThuc Nhan(const DaThuc&);*/
-	void InRaFile(fstream);
+	void InRaFile(ofstream&);
 };
