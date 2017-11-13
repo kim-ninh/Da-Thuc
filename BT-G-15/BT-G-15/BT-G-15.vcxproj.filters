@@ -21,6 +21,9 @@
     <ClCompile Include="DaThuc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TaoInputDaThuc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DaThuc.h">

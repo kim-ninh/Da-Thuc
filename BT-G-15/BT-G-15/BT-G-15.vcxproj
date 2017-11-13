@@ -112,6 +112,7 @@
   <ItemGroup>
     <ClCompile Include="DaThuc.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TaoInputDaThuc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DaThuc.h" />

@@ -1,6 +1,6 @@
 #include<iostream> 
 #include "DaThuc.h"
-
+#include"TaoInputDaThuc.cpp"
 #define INP_F1 "f1.txt" 
 #define INP_F2 "f2.txt" 
 #define OUTPUT "f.txt"
@@ -8,6 +8,10 @@ using namespace std;
 
 int main()
 {
+	ofstream outFile("F.txt");
+	randomGenerate(cout, 10);
+	outFile.close();
+
 	DaThuc F1, F2;
 	F1.NhapTuFile(INP_F1);
 	//F2.NhapTuFile(INP_F2);
