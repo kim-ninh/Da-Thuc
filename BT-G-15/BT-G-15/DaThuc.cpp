@@ -303,6 +303,12 @@ void DaThuc::ChuanHoa()
 	quick_sort(donthuc, tail, priority);
 }
 
+DaThuc DaThuc::operator=(const DaThuc & dathuc)
+{
+	DaThuc result(dathuc);
+	return result;
+}
+
 DaThuc DaThuc::operator-(const DaThuc& dathuc)
 {
 	// cho rằng cả 2 đa thức đã được chuẩn hóa
