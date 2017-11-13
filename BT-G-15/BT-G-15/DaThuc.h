@@ -3,6 +3,18 @@
 #include<fstream>
 using namespace std;
 
+enum State {
+	HS,
+	VAR,
+	BAC,
+	INIT
+};
+
+enum Type {
+	NUM, MUL, PLUS, SUB, POWER, BIEN, //số, *, +, -, ^
+	END	//ket thuc chuoi
+};
+
 struct Bien
 {
 	char ten;
