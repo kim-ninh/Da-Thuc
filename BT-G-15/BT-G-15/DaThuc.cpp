@@ -388,6 +388,40 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 	return f;           // đa thức kết quả trả về đã chuẩn hóa sẵn, ko cần chuẩn hóa lại
 }
 
+DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
+{
+	DonThuc p;
+	p.hs = d1.hs*d2.hs;
+	p.bien = d1.bien;
+	p.bien->next = d2.bien;
+	return p;
+}
+
+DaThuc DaThuc::operator*(const DaThuc&dathuc)
+{
+	DaThuc f;
+	NodeDonThuc*p = this->donthuc;
+	NodeDonThuc*dummy = new NodeDonThuc();
+	NodeDonThuc*tail = dummy;
+	while (p)
+	{
+		NodeDonThuc*q = dathuc.donthuc;		//Tạo mới lại con trỏ q mỗi lần vòng lặp while(q) kết thúc
+		while (q)
+		{
+			DonThuc temp = NhanDonThuc(p->data, q->data); //Tạo một đơn thức
+			tail->next = new NodeDonThuc(temp);			//Tạo một node đơn thức rồi gắn vào đa thức mới
+			tail = tail->next;
+			q = q->next;
+		}
+		p = p->next;
+		delete q;
+	}
+	f.donthuc = dummy->next;
+	delete dummy;
+	f.RutGon();
+	return f;
+}
+
 ostream& operator <<(ostream & os, NodeDonThuc *donthuc)
 {
 	os << donthuc->data.hs << "*" << donthuc->data.bien->ten << "^" << donthuc->data.bien->bac;

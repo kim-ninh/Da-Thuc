@@ -63,6 +63,7 @@ public:
 	int length();// Hàm phụ cho hàm RutGon và DeleteNode
 	void DeleteNode(int pos); // Hàm phụ cho hàm RutGon
 	void ChuanHoa();
+	DonThuc NhanDonThuc(DonThuc d1, DonThuc d2); //Hàm phụ để nhân hai đơn thức
 	DaThuc& operator = (const DaThuc&);
 	DaThuc operator + (const DaThuc&);
 	DaThuc operator - (const DaThuc& dathuc);
