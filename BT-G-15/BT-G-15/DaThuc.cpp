@@ -479,6 +479,25 @@ void DaThuc::DeleteNode(int pos) {
 	}
 }
 
+bool KiemTraBac(DonThuc dt1, DonThuc dt2){
+	int tmp1 = 0, tmp2 = 0;
+	for (Bien*p = dt1.bien; p; p = p->next) {
+		if (p->bac != 0)
+		{
+			tmp1 = 1;
+			break;
+		}
+	}
+	for (Bien*q = dt2.bien; q; q = q->next) {
+		if (q->bac != 0) {
+			tmp2 = 1;
+			break;
+		}
+	}
+	if (tmp1 == 0 && tmp2 == 0)return true;
+	return false;
+}
+
 void DaThuc::RutGon() {
 	if (donthuc == NULL || donthuc->next == NULL)return;
 	ChuanHoa();// Sắp xếp đa thức tăng trước khi rút gọn
@@ -503,7 +522,7 @@ void DaThuc::RutGon() {
 			pos--;
 			n--;
 		}
-		else if (p->data.bien->bac == 0 && q->data.bien->bac == 0) {		// 2 đơn thức có bậc bằng 0
+		else if (KiemTraBac(p->data,q->data)==true) {		// 2 đơn thức có bậc bằng 0
 			p->data.hs += q->data.hs;
 			q = q->next;
 			pos++;
