@@ -303,7 +303,7 @@ void DaThuc::ChuanHoa()
 {
 	if (donthuc == nullptr)
 		return;
-	this->RutGon();
+//	this->RutGon();
 	NodeDonThuc* tail = donthuc;
 
 	// tìm con trỏ tail, phục vụ cho thao tác sắp xếp
@@ -512,7 +512,7 @@ void DaThuc::RutGon() {
 	int pos = 0, n = length();
 
 	// xóa các đơn thức có hệ số bằng 0 hoặc những đơn thức giống nhau hoặc những đơn thức có bậc bằng 0
-	while (pos < n) {
+	while (p->next!=NULL) {		// đã sửa lại điều kiện vòng lặp
 		if (p->data.hs == 0) {		// hệ số bằng 0
 			p = p->next;
 			q = q->next;

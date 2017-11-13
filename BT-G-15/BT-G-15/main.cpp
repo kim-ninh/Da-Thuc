@@ -8,20 +8,26 @@ using namespace std;
 
 int main()
 {
-	ofstream outFile1("input1.txt"), outFile2("input2.txt");
+	/*ofstream outFile1("input1.txt"), outFile2("input2.txt");
 	srand(time(nullptr));
 	randomGenerate(outFile1, 3);
 	randomGenerate(outFile2, 3);
 	outFile1.close();
-	outFile2.close();
+	outFile2.close();*/
 
 	DaThuc F1, F2, F;
 	F1.NhapTuFile("input1.txt");
+	
 	F2.NhapTuFile("input2.txt");
+	
 	//DaThuc F(F1 - F2);
 	F1.ChuanHoa();
+	F1.InRaFile(cout);
+	cout << endl;
 	F2.ChuanHoa();
+	F2.InRaFile(cout);
 	F = F1 + F2;
+	cout << endl;
 	F.InRaFile(cout);
 	cin.get();
 
