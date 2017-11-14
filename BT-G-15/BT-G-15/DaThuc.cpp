@@ -241,13 +241,13 @@ void DaThuc::quick_sort(NodeDonThuc*& dt_head, NodeDonThuc*& dt_tail, int(* cmp)
 
 DaThuc::DaThuc()
 {
-	donthuc=NULL;			
+	donthuc=nullptr;			
 }
 
 DaThuc::DaThuc(const DaThuc& dathuc)
 {
 	if (dathuc.donthuc == nullptr)
-		return;
+		this->donthuc = nullptr;
 
 	NodeDonThuc *dummy = new NodeDonThuc();
 	NodeDonThuc *tail = dummy;
@@ -315,6 +315,8 @@ void DaThuc::ChuanHoa()
 
 DaThuc& DaThuc::operator=(const DaThuc & dathuc)
 {
+	if (dathuc.donthuc == nullptr)
+		return DaThuc();
 	NodeDonThuc *dummy = new NodeDonThuc();
 	NodeDonThuc *tail = dummy;
 	NodeDonThuc *p = dathuc.donthuc;
@@ -385,6 +387,7 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 	}
 	f.donthuc = dummy->next;     // các node của đa thức kết quả sẽ bắt đầu sau node giả
 	delete dummy;   // hủy node giả
+	f.RutGon();
 	return f;           // đa thức kết quả trả về đã chuẩn hóa sẵn, ko cần chuẩn hóa lại
 }
 
@@ -443,8 +446,11 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 				q = q->next;
 				delete temp;
 			}
-			q = q->next;
-			pre = pre->next;
+			else
+			{
+				q = q->next;
+				pre = pre->next;
+			}
 		}
 		p = p->next;
 	}
@@ -482,6 +488,11 @@ DaThuc DaThuc::operator*(const DaThuc&dathuc)
 
 ostream& operator <<(ostream & os, DaThuc &dathuc)
 {
+	if (dathuc.donthuc == nullptr)
+	{
+		os << '0';
+		return os;
+	}
 	NodeDonThuc *p = dathuc.donthuc;
 
 	while (p != nullptr)

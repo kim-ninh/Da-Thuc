@@ -9,7 +9,7 @@ float generateRandomFloat()
 	return randomFloat;
 }
 
-void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac, short SoDonThucCungBien)
+void randomGenerate(ostream& outDev, short SoDonThuc, short SoBienCuaDonThuc, short SoDonThucCungBac, short SoDonThucCungBien)
 {
 	char dsBien[] = { 'x','y'};
 	short dsBac[] = { 1,2,4 };
@@ -21,13 +21,19 @@ void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac, sh
 	int pos;
 	for (int i = 0; i < SoDonThuc; i++)
 	{
-		pos = rand() % (sizeof(dsBien) / sizeof(char));
+		
 		heso = generateRandomFloat();
 		if (heso > 0 && i != 0)
 			outDev << '+';
-		outDev << setprecision(2) <<fixed<< heso << '*' << dsBien[pos] << '^';
-		pos = rand() % (sizeof(dsBac) / sizeof(short));
-		outDev << dsBac[pos];
+		outDev << setprecision(2) << fixed << heso;
+		
+		for (int j = 0; j < SoBienCuaDonThuc; j++)
+		{
+			pos = rand() % (sizeof(dsBien) / sizeof(char));
+			outDev << '*' << dsBien[pos] << '^';
+			pos = rand() % (sizeof(dsBac) / sizeof(short));
+			outDev << dsBac[pos];
+		}
 	}
 
 }

@@ -14,7 +14,7 @@ int main()
 	randomGenerate(outFile2, 3);
 	outFile1.close();
 	outFile2.close();*/
-
+	
 	DaThuc F1, F2, F;
 	F1.NhapTuFile("input1.txt");
 	F2.NhapTuFile("input2.txt");

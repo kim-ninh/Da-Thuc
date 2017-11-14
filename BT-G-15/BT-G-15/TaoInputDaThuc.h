@@ -5,4 +5,4 @@
 using namespace std;
 
 float generateRandomFloat();
-void randomGenerate(ostream& outDev, short SoDonThuc, short SoDonThucCungBac = 0, short SoDonThucCungBien = 0);
+void randomGenerate(ostream& outDev, short SoDonThuc, short SoBienCuaDonThuc =  1, short SoDonThucCungBac = 0, short SoDonThucCungBien = 0);
