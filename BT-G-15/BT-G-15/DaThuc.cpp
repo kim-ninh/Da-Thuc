@@ -446,6 +446,7 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 			q = q->next;
 			pre = pre->next;
 		}
+		p = p->next;
 	}
 
 	//========================
