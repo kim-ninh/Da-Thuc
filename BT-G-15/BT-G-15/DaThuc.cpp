@@ -427,7 +427,26 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 	tail->next = nullptr;
 
 	//Xóa các biến trùng tên, tăng bậc lên (cần bổ sung ở phía dưới)
-
+	p = dummy->next;
+	Bien *q, *pre;
+	while (p)
+	{
+		q = p->next;
+		pre = p;
+		while (q)
+		{
+			if (q->ten == p->ten)
+			{
+				p->bac += q->bac;
+				pre->next = q->next;
+				Bien *temp = q;
+				q = q->next;
+				delete temp;
+			}
+			q = q->next;
+			pre = pre->next;
+		}
+	}
 
 	//========================
 	result.bien = dummy->next;
