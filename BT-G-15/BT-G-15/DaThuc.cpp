@@ -390,11 +390,49 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 
 DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 {
-	DonThuc p;
+	/*DonThuc p;
 	p.hs = d1.hs*d2.hs;
 	p.bien = d1.bien;
 	p.bien->next = d2.bien;
-	return p;
+	return p;*/
+
+	DonThuc result;
+	result.hs = d1.hs * d2.hs;
+
+	Bien *p, *dummy, *tail;
+	dummy = new Bien();
+	tail = dummy;
+	
+	p = d1.bien;
+	while (p != nullptr)
+	{
+		tail->next = new Bien;
+		tail->next->ten = p->ten;
+		tail->next->bac = p->bac;
+		
+		tail = tail->next;
+		p = p->next;
+	}
+
+	p = d2.bien;
+	while (p != nullptr)
+	{
+		tail->next = new Bien;
+		tail->next->ten = p->ten;
+		tail->next->bac = p->bac;
+
+		tail = tail->next;
+		p = p->next;
+	}
+	tail->next = nullptr;
+
+	//Xóa các biến trùng tên, tăng bậc lên (cần bổ sung ở phía dưới)
+
+
+	//========================
+	result.bien = dummy->next;
+	delete dummy;
+	return result;
 }
 
 DaThuc DaThuc::operator*(const DaThuc&dathuc)
@@ -414,7 +452,7 @@ DaThuc DaThuc::operator*(const DaThuc&dathuc)
 			q = q->next;
 		}
 		p = p->next;
-		delete q;
+		//delete q;
 	}
 	f.donthuc = dummy->next;
 	delete dummy;
