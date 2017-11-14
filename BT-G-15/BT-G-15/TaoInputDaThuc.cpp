@@ -3,8 +3,8 @@
 float generateRandomFloat()
 {
 	float Low, High, randomFloat;
-	Low = -128.0;
-	High = 127.0;
+	Low = -10;
+	High = 10;
 	randomFloat = Low + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (High - Low)));
 	return randomFloat;
 }

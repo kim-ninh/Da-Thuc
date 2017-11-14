@@ -17,18 +17,16 @@ int main()
 
 	DaThuc F1, F2, F;
 	F1.NhapTuFile("input1.txt");
-	
 	F2.NhapTuFile("input2.txt");
-	
-	//DaThuc F(F1 - F2);
-	F1.ChuanHoa();
-	F1.InRaFile(cout);
-	cout << endl;
-	F2.ChuanHoa();
-	F2.InRaFile(cout);
-	F = F1 + F2;
-	cout << endl;
-	F.InRaFile(cout);
+
+	cout << "F1 : " << F1 << endl;
+	cout << "F2 : " << F2 << endl;
+	cout << "F1 + F2 :" <<  F1 + F2 << endl;
+	cout << "F2 + F2 : " << F2 + F2 << endl;
+	cout << "F2 - F1 :" << F2 - F1 << endl;
+	cout << "F1 - F2 : " << F1 - F2 << endl;
+	cout << "F2 - F2 : " << F2 - F2 << endl;
+	cout << "F1 * F1 : " << F1 * F1 << endl;
 	cin.get();
 
 	//DaThuc F1, F2;

@@ -303,7 +303,7 @@ void DaThuc::ChuanHoa()
 {
 	if (donthuc == nullptr)
 		return;
-//	this->RutGon();
+
 	NodeDonThuc* tail = donthuc;
 
 	// tìm con trỏ tail, phục vụ cho thao tác sắp xếp
@@ -337,8 +337,8 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 {
 	DaThuc dt1(*this);
 	DaThuc dt2(dathuc);
-	dt1.ChuanHoa();
-	dt2.ChuanHoa();
+	dt1.RutGon();
+	dt2.RutGon();
 	DaThuc f;
 	NodeDonThuc *p = dt1.donthuc;           // dùng để duyệt vòng lặp cho đa thức 1
 	NodeDonThuc *q = dt2.donthuc;       // dùng để duyệt vòng lặp cho đa thức 2
@@ -363,7 +363,7 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 		{
 			tail->next = new NodeDonThuc(p->data);
 			tail = tail->next;
-			tail->data.hs += q->data.hs;
+			tail->data.hs -= q->data.hs;
 			p = p->next;
 			q = q->next;
 		}
@@ -422,24 +422,29 @@ DaThuc DaThuc::operator*(const DaThuc&dathuc)
 	return f;
 }
 
-ostream& operator <<(ostream & os, NodeDonThuc *donthuc)
+ostream& operator <<(ostream & os, DaThuc &dathuc)
 {
-	os << donthuc->data.hs << "*" << donthuc->data.bien->ten << "^" << donthuc->data.bien->bac;
-	return os;
-}
-void DaThuc::InRaFile(ostream& fileOut)
-{
-	NodeDonThuc * p = donthuc;
-	
-	while (p != NULL)
+	NodeDonThuc *p = dathuc.donthuc;
+
+	while (p != nullptr)
 	{
-		if (p != donthuc && p->data.hs >= 0)
-			fileOut << '+';
-		fileOut << p;
+		if (p != dathuc.donthuc && p->data.hs >= 0)
+			os << '+';
+		os << p->data.hs;
+
+		Bien *q = p->data.bien;
+		while (q != nullptr)
+		{
+			os << "*" << q->ten << "^" << q->bac;
+			q = q->next;
+		}
+
+		if (p->next != nullptr)			//Comment lại 2 dòng này để in ra giống như ví dụ của thầy
+			os << ' ';					//
 		p = p->next;
 	}
 
-	//fileOut.close();
+	return os;
 }
 
 int priority(DonThuc& dt1, DonThuc& dt2)
