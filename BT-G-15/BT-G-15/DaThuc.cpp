@@ -331,6 +331,10 @@ DaThuc& DaThuc::operator=(const DaThuc & dathuc)
 {
 	if (dathuc.donthuc == nullptr)
 		return DaThuc();
+	
+	if (this->donthuc != nullptr)
+		this->~DaThuc();
+
 	NodeDonThuc *dummy = new NodeDonThuc();
 	NodeDonThuc *tail = dummy;
 	NodeDonThuc *p = dathuc.donthuc;
@@ -443,26 +447,32 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 	dummy = new Bien();
 	tail = dummy;
 	
-	// Nối các biến của dt1 và dt2 vào 1 dt kết quả
+	// Nối các biến của dt1 và dt2 vào 1 dt kết quả, ko nối những biến có bậc bằng 0
 	p = d1.bien;					
 	while (p != nullptr)
 	{
-		tail->next = new Bien;
-		tail->next->ten = p->ten;
-		tail->next->bac = p->bac;
-		
-		tail = tail->next;
+		if (p->bac != 0)
+		{
+			tail->next = new Bien;
+			tail->next->ten = p->ten;
+			tail->next->bac = p->bac;
+
+			tail = tail->next;
+		}
 		p = p->next;
 	}	
 									
 	p = d2.bien;					
 	while (p != nullptr)
 	{
-		tail->next = new Bien;
-		tail->next->ten = p->ten;
-		tail->next->bac = p->bac;
+		if (p->bac != 0)
+		{
+			tail->next = new Bien;
+			tail->next->ten = p->ten;
+			tail->next->bac = p->bac;
 
-		tail = tail->next;
+			tail = tail->next;
+		}
 		p = p->next;
 	}
 	tail->next = nullptr;			
@@ -517,7 +527,6 @@ DaThuc DaThuc::operator*(const DaThuc&dathuc)
 			q = q->next;
 		}
 		p = p->next;
-		//delete q;
 	}
 	f.donthuc = dummy->next;
 	delete dummy;
@@ -582,6 +591,13 @@ int priority(DonThuc& dt1, DonThuc& dt2)
 			return 1;
 		else if (p->ten > q->ten)
 			return -1;
+		else
+		{
+			if (p->bac < q->bac)
+				return 1;
+			else if (p->bac > q->bac)
+				return -1;
+		}
 
 		p = p->next;
 		q = q->next;

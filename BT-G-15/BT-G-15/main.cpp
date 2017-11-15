@@ -8,14 +8,15 @@ using namespace std;
 
 void Solve(ostream &os, char times = 1)
 {
-	ofstream outFile1("input1.txt"), outFile2("input2.txt");
+	
 	srand(time(nullptr));
 	for (int i = 0; i < times; i++)
 	{
+		/*ofstream outFile1("input1.txt"), outFile2("input2.txt");
 		randomGenerate(outFile1, 5);
 		randomGenerate(outFile2, 5);
 		outFile1.close();
-		outFile2.close();
+		outFile2.close();*/
 		
 		DaThuc F[5];
 		F[0].NhapTuFile("input1.txt");
@@ -26,7 +27,6 @@ void Solve(ostream &os, char times = 1)
 		F[2] = F[0] + F[1];
 		F[3] = F[0] - F[1];
 		F[4] = F[0] * F[1];
-		F[4].RutGon();
 		for (int i = 0; i < 5; i++)
 		{
 			os << 'F' << i + 1 << endl;
