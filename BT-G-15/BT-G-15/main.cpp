@@ -1,9 +1,10 @@
-﻿#include<iostream> 
+﻿#include<iostream>
+#include<fstream>
 #include "DaThuc.h"
 #include"TaoInputDaThuc.h"
-#define INP_F1 "f1.txt" 
-#define INP_F2 "f2.txt" 
-#define OUTPUT "f.txt"
+#define INP_F1 "F1.txt" 
+#define INP_F2 "F2.txt" 
+#define OUTPUT "F-result.txt"
 using namespace std;
 
 void Solve(ostream &os, char times = 1)
@@ -12,15 +13,15 @@ void Solve(ostream &os, char times = 1)
 	srand(time(nullptr));
 	for (int i = 0; i < times; i++)
 	{
-		/*ofstream outFile1("input1.txt"), outFile2("input2.txt");
-		randomGenerate(outFile1, 5);
-		randomGenerate(outFile2, 5);
+		ofstream outFile1(INP_F1), outFile2(INP_F2);
+		randomGenerate(outFile1, 7);
+		randomGenerate(outFile2, 7);
 		outFile1.close();
-		outFile2.close();*/
-		
+		outFile2.close();
+
 		DaThuc F[5];
-		F[0].NhapTuFile("input1.txt");
-		F[1].NhapTuFile("input2.txt");
+		F[0].NhapTuFile(INP_F1);
+		F[1].NhapTuFile(INP_F2);
 
 		F[0].RutGon();
 		F[1].RutGon();
@@ -32,13 +33,17 @@ void Solve(ostream &os, char times = 1)
 			os << 'F' << i + 1 << endl;
 			os << F[i] << endl << endl;
 		}
+
+		os << endl << endl;
 	}
 }
 
 
 int main()
 {
-	Solve(cout);
+	ofstream outputFile(OUTPUT);
+	Solve(outputFile);
+	outputFile.close();
 	cin.get();
 
 	//DaThuc F1, F2;

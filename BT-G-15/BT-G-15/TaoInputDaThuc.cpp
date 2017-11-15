@@ -23,7 +23,7 @@ void randomGenerate(ostream& outDev, short SoDonThuc, short SoBienCuaDonThuc, sh
 	{
 		
 		heso = -10 + rand() % 20;
-		if (heso > 0 && i != 0)
+		if (heso >= 0 && i != 0)
 			outDev << '+';
 		outDev << setprecision(2) << fixed << heso;
 		

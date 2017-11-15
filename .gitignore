@@ -240,3 +240,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/BT-G-15/BT-G-15/BT-G-15.exe
+/BT-G-15/BT-G-15/F-result.txt
+/BT-G-15/BT-G-15/F1.txt
+/BT-G-15/BT-G-15/F2.txt
