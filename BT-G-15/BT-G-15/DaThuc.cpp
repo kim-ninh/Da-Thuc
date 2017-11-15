@@ -42,6 +42,20 @@ DonThuc::DonThuc(const DonThuc& donthuc)
 	dummy = nullptr;
 }
 
+void DonThuc::ChuanHoa()
+{
+	if (bien == nullptr)
+		return;
+
+	Bien* tail = bien;
+
+	// tìm con trỏ tail, phục vụ cho thao tác sắp xếp
+	while (tail->next != nullptr)
+		tail = tail->next;
+
+	Sort(bien, tail, priority);
+}
+
 int DonThuc::Bac() const
 {
 	int bac = 0;
@@ -335,6 +349,35 @@ DaThuc& DaThuc::operator=(const DaThuc & dathuc)
 	return *this;
 }
 
+DaThuc DaThuc::operator+(const DaThuc&dathuc) {
+	DaThuc f;
+	NodeDonThuc*p = this->donthuc;
+	NodeDonThuc*q = dathuc.donthuc;
+	NodeDonThuc*dummy = new NodeDonThuc();
+	NodeDonThuc*tail = dummy;
+	// liên kết 2 đa thức sau đó gọi hàm rút gọn
+
+	// Thêm các node của đa thức 1 vào cuối
+	while (p) {
+		tail->next = new NodeDonThuc(p->data);
+		tail = tail->next;
+		p = p->next;
+	}
+
+	// thêm các node của đa thức 2 vào cuối (đa thức 1 đã hết)
+	while (q) {
+		tail->next = new NodeDonThuc(q->data);
+		tail = tail->next;
+		q = q->next;
+	}
+
+	f.donthuc = dummy->next;		// các node của đa thức kết quả sẽ bắt đầu sau node giả
+	delete dummy;	// hủy node giả
+
+	f.RutGon();// rút gọn đa thức kết quả
+	return f;
+}
+
 DaThuc DaThuc::operator-(const DaThuc& dathuc)
 {
 	DaThuc dt1(*this);
@@ -393,12 +436,6 @@ DaThuc DaThuc::operator-(const DaThuc& dathuc)
 
 DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 {
-	/*DonThuc p;
-	p.hs = d1.hs*d2.hs;
-	p.bien = d1.bien;
-	p.bien->next = d2.bien;
-	return p;*/
-
 	DonThuc result;
 	result.hs = d1.hs * d2.hs;
 
@@ -406,7 +443,8 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 	dummy = new Bien();
 	tail = dummy;
 	
-	p = d1.bien;
+	// Nối các biến của dt1 và dt2 vào 1 dt kết quả
+	p = d1.bien;					
 	while (p != nullptr)
 	{
 		tail->next = new Bien;
@@ -415,9 +453,9 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 		
 		tail = tail->next;
 		p = p->next;
-	}
-
-	p = d2.bien;
+	}	
+									
+	p = d2.bien;					
 	while (p != nullptr)
 	{
 		tail->next = new Bien;
@@ -427,9 +465,10 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 		tail = tail->next;
 		p = p->next;
 	}
-	tail->next = nullptr;
-
-	//Xóa các biến trùng tên, tăng bậc lên (cần bổ sung ở phía dưới)
+	tail->next = nullptr;			
+	//==============================================
+	
+	//	Xóa các biến trùng lặp, tăng bậc
 	p = dummy->next;
 	Bien *q, *pre;
 	while (p)
@@ -454,10 +493,10 @@ DonThuc DaThuc::NhanDonThuc(DonThuc d1, DonThuc d2)
 		}
 		p = p->next;
 	}
-
-	//========================
-	result.bien = dummy->next;
+	//==================================
+	result.bien = dummy->next;	//đầu dslk biến chính là dummy->next
 	delete dummy;
+	result.ChuanHoa();		
 	return result;
 }
 
@@ -504,7 +543,10 @@ ostream& operator <<(ostream & os, DaThuc &dathuc)
 		Bien *q = p->data.bien;
 		while (q != nullptr)
 		{
-			os << "*" << q->ten << "^" << q->bac;
+			if (q->bac != 0 && q->bac != 1)
+				os << "*" << q->ten << "^" << q->bac;
+			else if (q->bac == 1)
+				os << "*" << q->ten;
 			q = q->next;
 		}
 
@@ -555,7 +597,8 @@ int priority(DonThuc& dt1, DonThuc& dt2)
 	return 0;
 }
 
-void addTail(NodeDonThuc*& pHead, NodeDonThuc*& pTail, NodeDonThuc* p)
+template <class T>
+void addTail(T*& pHead, T*& pTail, T* p)
 {
 	if (pHead == nullptr)
 		pHead = pTail = p;
@@ -566,6 +609,64 @@ void addTail(NodeDonThuc*& pHead, NodeDonThuc*& pTail, NodeDonThuc* p)
 	}
 }
 
+void Sort(Bien*& pHead, Bien*& pTail, int(*cmp)(const Bien&, const Bien&))
+{
+	if (pHead == pTail) // đã có thứ tự
+		return;
+
+	Bien *head1, *tail1;
+	Bien *head2, *tail2;
+
+	head1 = tail1 = nullptr;
+	head2 = tail2 = nullptr;
+
+	Bien* X = pHead;
+	pHead = pHead->next;
+	X->next = nullptr;
+
+	// tách thành 2 dãy con
+	while (pHead != nullptr)
+	{
+		Bien* pNode = pHead;
+		pHead = pHead->next;
+		pNode->next = nullptr;
+
+		if (cmp(*pNode, *X) >= 0)
+			addTail(head1, tail1, pNode);
+		else
+			addTail(head2, tail2, pNode);
+	}
+
+	// gọi đệ quy cho 2 dãy con
+	Sort(head1, tail1, cmp);
+	Sort(head2, tail2, cmp);
+
+	// nối 2 dãy con và phần tử cầm canh vào
+	if (head1 != nullptr)
+	{
+		pHead = head1;
+		tail1->next = X;
+	}
+	else
+		pHead = X;
+
+	X->next = head2;
+
+	if (tail2 != nullptr)
+		pTail = tail2;
+	else
+		pTail = X;
+}
+
+int priority(const Bien& bien1, const Bien& bien2)
+{
+	// các tên biến trong đơn thức khác nhau từng đôi
+
+	if (bien1.ten < bien2.ten)
+		return 1;
+
+	return -1;
+}
 
 int DaThuc::length() {
 	int count = 0;
@@ -663,31 +764,3 @@ void DaThuc::RutGon() {
 	}
 }
 
-DaThuc DaThuc::operator+(const DaThuc&dathuc) {
-	DaThuc f;
-	NodeDonThuc*p = this->donthuc;
-	NodeDonThuc*q = dathuc.donthuc;
-	NodeDonThuc*dummy = new NodeDonThuc();
-	NodeDonThuc*tail = dummy;
-	// liên kết 2 đa thức sau đó gọi hàm rút gọn
-
-	// Thêm các node của đa thức 1 vào cuối
-	while (p) {
-		tail->next = new NodeDonThuc(p->data);
-		tail = tail->next;
-		p = p->next;
-	}
-
-	// thêm các node của đa thức 2 vào cuối (đa thức 1 đã hết)
-	while (q) {
-		tail->next = new NodeDonThuc(q->data);
-		tail = tail->next;
-		q = q->next;
-	}
-
-	f.donthuc = dummy->next;		// các node của đa thức kết quả sẽ bắt đầu sau node giả
-	delete dummy;	// hủy node giả
-	
-	f.RutGon();// rút gọn đa thức kết quả
-	return f;
-}

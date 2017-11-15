@@ -6,27 +6,39 @@
 #define OUTPUT "f.txt"
 using namespace std;
 
+void Solve(ostream &os, char times = 1)
+{
+	ofstream outFile1("input1.txt"), outFile2("input2.txt");
+	srand(time(nullptr));
+	for (int i = 0; i < times; i++)
+	{
+		randomGenerate(outFile1, 5);
+		randomGenerate(outFile2, 5);
+		outFile1.close();
+		outFile2.close();
+		
+		DaThuc F[5];
+		F[0].NhapTuFile("input1.txt");
+		F[1].NhapTuFile("input2.txt");
+
+		F[0].RutGon();
+		F[1].RutGon();
+		F[2] = F[0] + F[1];
+		F[3] = F[0] - F[1];
+		F[4] = F[0] * F[1];
+		F[4].RutGon();
+		for (int i = 0; i < 5; i++)
+		{
+			os << 'F' << i + 1 << endl;
+			os << F[i] << endl << endl;
+		}
+	}
+}
+
+
 int main()
 {
-	/*ofstream outFile1("input1.txt"), outFile2("input2.txt");
-	srand(time(nullptr));
-	randomGenerate(outFile1, 3);
-	randomGenerate(outFile2, 3);
-	outFile1.close();
-	outFile2.close();*/
-	
-	DaThuc F1, F2, F;
-	F1.NhapTuFile("input1.txt");
-	F2.NhapTuFile("input2.txt");
-
-	cout << "F1 : " << F1 << endl;
-	cout << "F2 : " << F2 << endl;
-	cout << "F1 + F2 :" <<  F1 + F2 << endl;
-	cout << "F2 + F2 : " << F2 + F2 << endl;
-	cout << "F2 - F1 :" << F2 - F1 << endl;
-	cout << "F1 - F2 : " << F1 - F2 << endl;
-	cout << "F2 - F2 : " << F2 - F2 << endl;
-	cout << "F1 * F1 : " << F1 * F1 << endl;
+	Solve(cout);
 	cin.get();
 
 	//DaThuc F1, F2;

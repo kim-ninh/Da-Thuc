@@ -34,6 +34,7 @@ struct DonThuc
 
 	DonThuc();
 	DonThuc(const DonThuc& donthuc);
+	void ChuanHoa();
 	int Bac() const;
 };
 
@@ -52,6 +53,9 @@ private:
 	NodeDonThuc* donthuc;
 	Type typeof(char c);
 	void quick_sort(NodeDonThuc*& dt_head, NodeDonThuc*& dt_tail, int(*cmp)(DonThuc&, DonThuc&));
+	int length();// Hàm phụ cho hàm RutGon và DeleteNode
+	void DeleteNode(int pos); // Hàm phụ cho hàm RutGon
+	DonThuc NhanDonThuc(DonThuc d1, DonThuc d2); //Hàm phụ để nhân hai đơn thức
 public:
 	DaThuc();
 	DaThuc(const DaThuc& dathuc);
@@ -60,18 +64,12 @@ public:
 	void InsertHead(NodeDonThuc* node);
 	void NhapTuFile(string filename);
 	void RutGon();
-	int length();// Hàm phụ cho hàm RutGon và DeleteNode
-	void DeleteNode(int pos); // Hàm phụ cho hàm RutGon
 	void ChuanHoa();
-	DonThuc NhanDonThuc(DonThuc d1, DonThuc d2); //Hàm phụ để nhân hai đơn thức
 	DaThuc& operator = (const DaThuc&);
 	DaThuc operator + (const DaThuc&);
 	DaThuc operator - (const DaThuc& dathuc);
 	DaThuc operator * (const DaThuc&);
 	friend ostream& operator <<(ostream &, DaThuc &);
-	/*DaThuc Cong(const DaThuc&);
-	DaThuc Tru(const DaThuc&);
-	DaThuc Nhan(const DaThuc&);*/
 };
 
 
@@ -83,4 +81,9 @@ public:
 */
 int priority(DonThuc& dt1, DonThuc& dt2);
 
-void addTail(NodeDonThuc*& pHead, NodeDonThuc*& pTail, NodeDonThuc* p);
+template<class T>
+void addTail(T *&pHead, T *&tail, T *p);
+
+int priority(const Bien &bien1, const Bien &bien2);
+
+void Sort(Bien *&pHead, Bien *&pTail, int(*cmp)(const Bien&, const Bien&));
